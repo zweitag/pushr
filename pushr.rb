@@ -134,7 +134,7 @@ module Pushr
       if repository.uptodate? # Do not deploy if up-to-date (eg. push was to other branch) ...
         log.info('Pushr') { "No updates for application found" } and return {:@success => false, :output => 'Application is uptodate'}
       end unless force == 'true' # ... unless forced from web GUI
-      cap_command = CONFIG['cap_command'] || 'deploy:migrations'
+      cap_command = CONFIG['cap_command'] || 'cap deploy:migrations'
       log.info(application) { "Deployment #{"(force) " if force == 'true' }starting..." }
       @cap_output  = %x[cd #{path}/shared/cached-copy && #{cap_command} 2>&1]
       @success     = $?.success?
