@@ -6,7 +6,7 @@ class Pushr::Notifier::Campfire < Pushr::Notifier::Base
   def deliver!(notification)
     return unless configured?
     @campfire ||= Tinder::Campfire.new config['user'], :ssl => true, :token => config['apikey']
-    @room ||= campfire.find_room_by_name config['room']
+    @room ||= @campfire.find_room_by_name config['room']
     @room.speak "[pushr] #{message(notification)}"
   end
 
