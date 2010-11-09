@@ -126,6 +126,7 @@ module Pushr
       @path = path
       @application = ::CONFIG['application'] || "You really should set this to something"
       @repository  = Repository.new(path)
+      setup_ssh_agent
       load_notifiers
     end
 
@@ -143,6 +144,14 @@ module Pushr
     end
 
     private
+
+    def setup_ssh_agent
+      # TODO: start ssh agent if it is not running
+      (sock = Dir.glob("/tmp/ssh-*/agent.*").first) =~ /(\d+)$/
+      pid = $1
+      ENV["SSH_AUTH_SOCK"] = sock
+      ENV["SSH_AGENT_PID"] = pid
+    end
 
     def log_deploy_result
       if @success
