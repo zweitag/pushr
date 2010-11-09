@@ -1,8 +1,6 @@
 require 'rubygems'
 require 'tinder'
 
-# = Jabber notifications for Pushr (http://github.com/karmi/pushr/)
-# Buy http://peepcode.com/products/xmpp from Topfunky!
 class Pushr::Notifier::Campfire < Pushr::Notifier::Base
 
   def deliver!(notification)
