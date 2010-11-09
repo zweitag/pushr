@@ -3,6 +3,7 @@ require 'rubygems'
 require 'sinatra'
 require 'yaml'
 require 'logger'
+require 'campfire'
 
 # = Pushr
 # Deploy Rails applications by Github Post-Receive URLs launching Capistrano's commands
