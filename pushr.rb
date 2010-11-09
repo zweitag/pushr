@@ -96,7 +96,7 @@ module Pushr
     end
 
     def info
-      info = `cd #{@path}/current; git log --pretty=format:'%h --|-- %s --|-- %an --|-- %ar --|-- %ci' -n 1`
+      info = `cd #{@path}/current && git log --pretty=format:'%h --|-- %s --|-- %an --|-- %ar --|-- %ci' -n 1`
       @info ||= Struct::Info.new( *info.split(/\s{1}--\|--\s{1}/) )
     end
 
@@ -107,7 +107,7 @@ module Pushr
 
     def uptodate?
       log.info('Pushr') { "Fetching new revisions from remote..." }
-      info = `cd #{@path}/shared/cached-copy; git fetch -q origin 2>&1`
+      info = `cd #{@path}/shared/cached-copy && git fetch -q origin 2>&1`
       log.fatal('git fetch -q origin') { "Error while checking if app up-to-date: #{info}" } and return false unless $?.success?
       return info.strip == '' # Blank output => No updates from git remote
     end
@@ -135,7 +135,7 @@ module Pushr
       end unless force == 'true' # ... unless forced from web GUI
       cap_command = CONFIG['cap_command'] || 'deploy:migrations'
       log.info(application) { "Deployment #{"(force) " if force == 'true' }starting..." }
-      @cap_output  = %x[cd #{path}/shared/cached-copy; cap #{cap_command} 2>&1]
+      @cap_output  = %x[cd #{path}/shared/cached-copy && cap #{cap_command} 2>&1]
       @success     = $?.success?
       @repository.reload!  # Update repository info (after deploy)
       log_deploy_result

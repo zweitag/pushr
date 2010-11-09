@@ -37,5 +37,8 @@ namespace :deploy do
   after "deploy:setup" do
     run "rm -r #{current_path}; true" # don't fail on failure
   end
+
+  after "deploy:update_code" do
+    run "ln -sf #{shared_path}/config/* #{release_path}"
+  end
 end
-nd
