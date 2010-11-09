@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'sinatra'
 require 'yaml'
@@ -306,3 +307,4 @@ pre
   :white-space pre-wrap
   :white-space -moz-pre-wrap
   :white-space -o-pre-wrap
+ap
