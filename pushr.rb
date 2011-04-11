@@ -107,8 +107,8 @@ module Pushr
 
     def uptodate?
       log.info('Pushr') { "Fetching new revisions from remote..." }
-      info = `cd #{@path}/shared/cached-copy && git fetch -q origin 2>&1`
-      log.fatal('git fetch -q origin') { "Error while checking if app up-to-date: #{info}" } and return false unless $?.success?
+      info = `cd #{@path}/shared/cached-copy && git fetch origin 2>&1`
+      log.fatal('git fetch origin') { "Error while checking if app up-to-date: #{info}" } and return false unless $?.success?
       return info.strip == '' # Blank output => No updates from git remote
     end
 
